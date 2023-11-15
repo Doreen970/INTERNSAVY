@@ -1,0 +1,7 @@
+<!--a html page that displays a form to be filled by the user-->
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Blog</button>
+</form>
