@@ -1,0 +1,18 @@
+
+
+{% if user.is_authenticated %}
+    <p>Hello {{ user.username }}, welcome!</p>
+    <nav>
+    <a href="{% url 'create_article' %}">Create Post</a>
+    <a href="{% url 'article_list' %}">Posts</a>   
+    <a href="{% url 'logout' %}">Logout</a>
+    </nav>
+{% else %}
+    <p>Hello dear, welcome!</p>
+    <nav>
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'signup' %}">Signup</a>
+    </nav>
+{% endif %}
+
+
