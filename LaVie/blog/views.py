@@ -15,7 +15,9 @@ def create_article(request):
     if request.method == 'POST':
         form = BlogForm(request.POST)
         if form.is_valid():
-            form.save()
+            article = form.save(commit=False)
+            article.created_by = request.user
+            article.save()
             return redirect('article_list')#redirect to article_list view
     else:
         form = BlogForm()

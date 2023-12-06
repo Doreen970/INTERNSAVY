@@ -14,7 +14,7 @@ def signup(request):
             return redirect('index')  # Redirect to the home page after registration
     else:
         form = UserCreationForm()
-    return render(request, 'user/signup.html', {'form': form})
+    return render(request, 'accounts/signup.html', {'form': form})
 
 def user_login(request):
     if request.method == 'POST':
@@ -25,7 +25,7 @@ def user_login(request):
             return redirect('index')  # Redirect to the home page after login
     else:
         form = AuthenticationForm()
-    return render(request, 'user/login.html', {'form': form}) 
+    return render(request, 'accounts/login.html', {'form': form}) 
 
 def user_logout(request):
     logout(request)
