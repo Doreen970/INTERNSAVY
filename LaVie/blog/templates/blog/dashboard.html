@@ -1,0 +1,15 @@
+<h1>Your Dashboard</h1>
+
+{% if user_articles %}
+    <ul>
+        {% for article in user_articles %}
+            <li>
+                <strong>{{ article.title }}</strong>
+                <p>{{ article.content }}</p>
+                <p>Published on: {{ article.pub_date }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You haven't written any articles yet.</p>
+{% endif %}
