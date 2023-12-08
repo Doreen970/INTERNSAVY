@@ -36,6 +36,13 @@ def detail(request, pk):
 @login_required
 def dashboard(request):
     user_articles = Article.objects.filter(created_by=request.user)
+    return render(request, 'blog/dashboard.html', {'user_articles': user_articles})
+
+@login_required
+def delete(request, pk):
+    article = Article.objects.get(pk=pk, created_by=request.user)
+    user_articles = Article.objects.filter(created_by=request.user)
+    article.delete()
     return render(request, 'blog/dashboard.html', {'user_articles': user_articles})    
 
 
