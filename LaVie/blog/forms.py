@@ -7,3 +7,8 @@ class BlogForm(forms.ModelForm):
     class Meta:
         model = Article
         fields = ['title', 'content']
+
+class EditForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = ['title', 'content']

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Article
-from .forms import BlogForm
+from .forms import BlogForm, EditForm
 
 #@login_required
 def index(request):
@@ -43,6 +43,20 @@ def delete(request, pk):
     article = Article.objects.get(pk=pk, created_by=request.user)
     user_articles = Article.objects.filter(created_by=request.user)
     article.delete()
-    return render(request, 'blog/dashboard.html', {'user_articles': user_articles})    
+    return render(request, 'blog/dashboard.html', {'user_articles': user_articles})
+
+@login_required
+def edit(request, pk):
+    article = Article.objects.get(pk=pk, created_by=request.user)
+    if request.method == 'POST':
+        form = EditForm(request.POST, request.FILES, instance=article)
+        if form.is_valid():
+            article = form.save(commit=False)
+            article.created_by = request.user
+            article.save()
+            return redirect('detail', pk=article.id)#redirect to detail view
+    else:
+        form = EditForm(instance=article)
+    return render(request, 'blog/edit.html', {'form': form})        
 
 

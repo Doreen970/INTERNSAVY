@@ -7,7 +7,8 @@
                 <strong>{{ article.title }}</strong>
                 <p>{{ article.content }}</p>
                 <p>Published on: {{ article.pub_date }}</p>
-                <a href="{% url 'delete' article.id %}">DELETE</a>
+                <a href="{% url 'edit' article.id %}" style="display: inline-block; border: 2px solid; border-radius: 3px; background-color: aquamarine;">EDIT</a>
+                <a href="{% url 'delete' article.id %}" style="display: inline-block; border: 2px solid; border-radius: 3px; background-color: red;">DELETE</a>
             </li>
         {% endfor %}
     </ul>
