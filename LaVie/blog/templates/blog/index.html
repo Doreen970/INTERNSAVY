@@ -1,9 +1,12 @@
+{% extends 'blog/base.html' %}
 
+{% block title %}LaVie{% endblock %}
+{% block content %}
 
 {% if user.is_authenticated %}
-    <p>Hello {{ user.username }}, welcome!</p>
+    <p class="text-center">Hello {{ user.username }}, welcome!</p>
     <nav>
-    <a href="{% url 'create_article' %}">Create Post</a>
+    <a class="btn btn-primary" href="{% url 'create_article' %}" role="button">Create Post</a>
     <a href="{% url 'article_list' %}">Posts</a>   
     <a href="{% url 'logout' %}">Logout</a>
     <a href="{% url 'user_dashboard' %}">Dashboard</a>
@@ -15,5 +18,7 @@
     <a href="{% url 'signup' %}">Signup</a>
     </nav>
 {% endif %}
+{% endblock content %}
+
 
 
