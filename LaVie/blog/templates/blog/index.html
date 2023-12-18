@@ -2,7 +2,7 @@
 
 <!--{% block title %}<h1>LaVie</h1>{% endblock %}--->
 {% block content %}
-<div style="margin-top: 10px; margin-bottom: 10px;"
+<div style="margin-top: 10px; margin-bottom: 10px;">
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <h2 class="navbar-brand">LaVie</h2>
@@ -40,6 +40,23 @@
 <span class="navbar-toggler-icon"></span>
 </div>
 </nav>
+</div>
+<div>
+    <ul>
+        {% for article in articles %}
+        <li>
+            <a href="{% url 'detail' article.id %}" style="text-decoration: none; color: black;">
+                <span><h3>{{ article.title }}</h3></span>
+                <span><p>Author: {{ article.created_by.username }}</p></span>
+            
+            {% if article.was_published_recently %}
+                    <span style="color: green;">(Published recently!)</span>
+                {% endif %}
+            </a>
+        </li>
+    {% endfor %}
+    </ul>  
+</div>
 {% endblock content %}
 
 

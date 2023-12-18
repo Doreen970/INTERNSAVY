@@ -5,10 +5,11 @@ from .forms import BlogForm, EditForm
 
 #@login_required
 def index(request):
+    articles = Article.objects.all()
     if request.user.is_authenticated:
-        return render(request, 'blog/index.html', {'user': request.user})
+        return render(request, 'blog/index.html', {'user': request.user, 'articles': articles})
     else:
-        return render(request, 'blog/index.html')    
+        return render(request, 'blog/index.html', {'articles': articles})    
     
 @login_required
 def create_article(request):
