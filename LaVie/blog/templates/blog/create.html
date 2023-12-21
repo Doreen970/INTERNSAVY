@@ -1,7 +1,16 @@
 <!--a html page that displays a form to be filled by the user-->
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Create Blog</button>
+    <div>
+        <label for="{{ form.image.id_for_label }}">Image</label>
+        <div>
+            <input type="file" name="{{ form.image.name }}" class="custom-file-input" id="{{ form.image.id_for_label }}">
+            <label for="{{ form.image.id_for_label }}">
+                
+            </label>
+        </div>
+    </div>
+    <button type="submit" style="margin-top: 15px;">Create Blog</button>
 </form>

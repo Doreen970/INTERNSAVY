@@ -9,6 +9,7 @@ class Article(models.Model):
     content = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, default=User.objects.filter(is_superuser=True).first().pk)
+    image = models.ImageField(upload_to='article_images/', blank=True, null=True)
     #created_by = user.username
     
 
