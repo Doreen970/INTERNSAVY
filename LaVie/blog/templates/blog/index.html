@@ -36,6 +36,10 @@
 </ul>
 </div>
 </div>
+<form class="d-flex" role="search" method="GET" action="search/">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
 <a class="btn btn-primary" href="{% url 'create_article' %}" role="button">Create Post</a>
 
 <!--<span class="navbar-toggler-icon"></span>--->
@@ -51,7 +55,7 @@
     <ul style="list-style-type: none; padding: 10px 0;">
         {% for article in articles %}
         <li style="margin-bottom: 15px;">
-            <a href="{% url 'detail' article.id %}" style="text-decoration: none; color: black;">
+            <a href="{% url 'detail' article.slug %}" style="text-decoration: none; color: black;">
                 <span><h3>{{ article.title }}</h3></span>
                 <span><p>Author: {{ article.created_by.username }}</p></span>
             

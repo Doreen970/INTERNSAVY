@@ -1,0 +1,10 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+{% for object in object_list %}
+{% if object.title %}
+<a href="{{ object.get_absolute_url }}">{{ object.title }}</a>
+{% endif %}
+{% endfor %}
+{% endblock content %}
