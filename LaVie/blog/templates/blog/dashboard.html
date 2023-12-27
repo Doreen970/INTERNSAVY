@@ -1,17 +1,17 @@
 {% extends 'blog/base.html' %}
 
-{% block title %}<h1>Your Dashboard</h1>{% endblock %}
+{% block title %}<h1 class="text-center">Your Dashboard</h1>{% endblock %}
 
 {% block content %}
 {% if user_articles %}
-    <ul>
+    <ul class="text-center" style="list-style: none;">
         {% for article in user_articles %}
             <li>
                 <strong>{{ article.title }}</strong>
-                <p class="card-text">{{ article.content }}</p>
+                <!--<p class="card-text">{{ article.content }}</p>--->
                 <p class="card-text">Published on: {{ article.pub_date }}</p>
-                <a class="btn btn-primary" href="{% url 'edit' article.id %}">EDIT</a>
-                <a href="{% url 'delete' article.id %}" style="display: inline-block; border: 2px solid; border-radius: 3px; background-color: red;">DELETE</a>
+                <a class="btn btn-primary" href="{% url 'edit' article.id %}" style="display: inline-block; border: 2px solid; border-radius: 3px; text-decoration: none; margin-right: 20px;">EDIT</a>
+                <a class="btn btn-danger" href="{% url 'delete' article.id %}" style="display: inline-block; border: 2px solid; border-radius: 3px; text-decoration: none;">DELETE</a>
             </li>
         {% endfor %}
     </ul>

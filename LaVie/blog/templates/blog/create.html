@@ -1,8 +1,8 @@
 <!--a html page that displays a form to be filled by the user-->
-<!--{% extends "blog/base.html" %}--->
+{% extends "blog/base.html" %}
 
 {% block content %}
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" class="text-center">
     {% csrf_token %}
     {{ form.as_p }}
     <!--<div>

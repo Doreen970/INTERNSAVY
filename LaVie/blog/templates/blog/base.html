@@ -9,58 +9,105 @@
 
     
     <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
+    <style>
+        
+       
+        
+        
+
+        .sidebar { 
+            padding: 25px;
+            background-color: #f8f9fa; 
+        }
+        .content {
+            display: block;
+        }
+        **/
+        .sidebar {
+            height: 100vh;
+        }
+        .sidebar div a {
+            text-decoration: none;
+        }
+        
+    </style>
 </head>
 <body>
+    <div style="margin-top: 10px; margin-bottom: 20px;">
+        
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <h2 class="navbar-brand">LaVie</h2>
+                <!--<span class="navbar-toggler-icon"></span>--->
+                <div style="align-items: center;">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+                    </li>
+        {% if user.is_authenticated %}
+           <!---- <li class="nav-item">
+            <a class="nav-link active" href="{% url 'article_list' %}">Posts</a>
+            </li>--->
+            <li class="nav-item"> 
+            <a class="nav-link active" href="{% url 'user_dashboard' %}">Dashboard</a>
+            </li> 
+            <li class="nav-item">    
+            <a class="nav-link active" href="{% url 'logout' %}">Logout</a>
+            </li>
+        
+        {% else %}
+            
+            <li class="nav-item">
+            <a class="nav-link active" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link active" href="{% url 'signup' %}">Signup</a>
+            </li>
+        {% endif %}
+        </ul>
+        </div>
+        </div>
+        <form class="d-flex" role="search" method="GET" action="search/">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        <a class="btn btn-primary" href="{% url 'create_article' %}" role="button">Create Post</a>
+        
+        <!--<span class="navbar-toggler-icon"></span>--->
+        <h3>{{ user.username }}</h3>
+        
+            <span class="navbar-toggler-icon"></span>
+        
+        </div>
+        </nav>
+        </div>
+        
+   <main class="row" style="width: 100%;">
+        <div class="sidebar col-lg-2 col-md-3" style="background-color: #f8f9fa; padding: 25px; align-items: center;">
+                   
+            <div>
+            <a href="">About</a>
+        </div>
+<div>
+            <a href="">Code of conduct</a>
+        </div>
+        <div>
+            <a href="">FAQ</a>
+        </div>
+        <div>
+            <a href="">Contact</a>
+        </div>
+
+        </div>
+    <div class="content col-lg-10 col-md-9">
    {% block content %}
-   <div style="margin-top: 10px; margin-bottom: 10px;">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <h2 class="navbar-brand">LaVie</h2>
-            <!--<span class="navbar-toggler-icon"></span>--->
-            <div style="align-items: center;">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
-                </li>
-    {% if user.is_authenticated %}
-        <li class="nav-item">
-        <a class="nav-link active" href="{% url 'article_list' %}">Posts</a>
-        </li>
-        <li class="nav-item"> 
-        <a class="nav-link active" href="{% url 'user_dashboard' %}">Dashboard</a>
-        </li> 
-        <li class="nav-item">    
-        <a class="nav-link active" href="{% url 'logout' %}">Logout</a>
-        </li>
-    <!--<p class="text-center">Hello {{ user.username }}, welcome!</p>-->
-    {% else %}
-        <!--<p>Hello dear, welcome! Please signup or login.</p>--->
-        <li class="nav-item">
-        <a class="nav-link active" href="{% url 'login' %}">Login</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link active" href="{% url 'signup' %}">Signup</a>
-        </li>
-    {% endif %}
-    </ul>
-    </div>
-    </div>
-    <form class="d-flex" role="search" method="GET" action="search/">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    <a class="btn btn-primary" href="{% url 'create_article' %}" role="button">Create Post</a>
-    
-    <!--<span class="navbar-toggler-icon"></span>--->
-    <h3>{{ user.username }}</h3>
-    
-        <span class="navbar-toggler-icon"></span>
-    
-    </div>
-    </nav>
-    </div>
-   {% endblock content %} 
+   
+   {% endblock content %}
+</div>
+</main>
+
     <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+
 </body>
 </html>

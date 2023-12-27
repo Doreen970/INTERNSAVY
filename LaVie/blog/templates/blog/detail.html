@@ -1,5 +1,8 @@
 <!-- blog/templates/blog/post_detail.html -->
+{% extends "blog/base.html" %}
 
+{% block content %}
+<div class="text-center">
 <h1>{{ article.title }}</h1>
 <p>{{ article.content }}</p>
 {% if image %}
@@ -7,3 +10,5 @@
 {% endif %}
 <p>Date published: {{ article.pub_date }}</p>
 <p>Author: {{ article.created_by.username }}</p>
+{% endblock content %}
+</div>

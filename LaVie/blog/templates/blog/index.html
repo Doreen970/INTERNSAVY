@@ -2,56 +2,9 @@
 
 <!--{% block title %}<h1>LaVie</h1>{% endblock %}--->
 {% block content %}
-<div style="margin-top: 10px; margin-bottom: 10px;">
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-        <h2 class="navbar-brand">LaVie</h2>
-        <!--<span class="navbar-toggler-icon"></span>--->
-        <div style="align-items: center;">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
-            </li>
-{% if user.is_authenticated %}
-    <li class="nav-item">
-    <a class="nav-link active" href="{% url 'article_list' %}">Posts</a>
-    </li>
-    <li class="nav-item"> 
-    <a class="nav-link active" href="{% url 'user_dashboard' %}">Dashboard</a>
-    </li> 
-    <li class="nav-item">    
-    <a class="nav-link active" href="{% url 'logout' %}">Logout</a>
-    </li>
-<!--<p class="text-center">Hello {{ user.username }}, welcome!</p>-->
-{% else %}
-    <!--<p>Hello dear, welcome! Please signup or login.</p>--->
-    <li class="nav-item">
-    <a class="nav-link active" href="{% url 'login' %}">Login</a>
-    </li>
-    <li class="nav-item">
-    <a class="nav-link active" href="{% url 'signup' %}">Signup</a>
-    </li>
-{% endif %}
-</ul>
-</div>
-</div>
-<form class="d-flex" role="search" method="GET" action="search/">
-    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
-    <button class="btn btn-outline-success" type="submit">Search</button>
-  </form>
-<a class="btn btn-primary" href="{% url 'create_article' %}" role="button">Create Post</a>
 
-<!--<span class="navbar-toggler-icon"></span>--->
-<h3>{{ user.username }}</h3>
 
-    <span class="navbar-toggler-icon"></span>
-
-</div>
-</nav>
-</div>
-
-<div class="text-center" style="margin: 30px; max-height: 200px; overflow-y: auto;">
+<div class="text-center" style="max-height: 400px; overflow-y: auto;">
     <ul style="list-style-type: none; padding: 10px 0;">
         {% for article in articles %}
         <li style="margin-bottom: 15px;">
