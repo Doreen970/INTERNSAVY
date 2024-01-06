@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from .forms import SignupForm
+from .forms import SignupForm, LoginForm
+from django.contrib.auth import login, logout
 
 # Create your views here.
 """
@@ -9,7 +10,7 @@ from django.contrib.auth import login, logout
 
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = LoginForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
@@ -20,7 +21,7 @@ def signup(request):
 
 def user_login(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, request.POST)
+        form = LoginForm(request, request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
@@ -30,6 +31,17 @@ def user_login(request):
     return render(request, 'accounts/login.html', {'form': form}) 
     """
 
+def user_login(request):
+    if request.method == 'POST':
+        form = LoginForm(request, request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('index')  # Redirect to the home page after login
+    else:
+        form = LoginForm()
+    return render(request, 'accounts/login.html', {'form': form})
+
 def user_logout(request):
     logout(request)
     return redirect('index') 
@@ -38,12 +50,12 @@ def signup(request):
     form = SignupForm()
     if request.method == "POST":
         form = SignupForm(request.POST)
-        if form.is_valid:
-            form.save()
-            return redirect('/login')
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            #form.save()
+            return redirect('login')
         
-        else:
-            form = SignupForm()
     return render(request, "accounts/signup.html", {
         "form": form
     })         
