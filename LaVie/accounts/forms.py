@@ -24,11 +24,15 @@ class SignupForm(UserCreationForm):
     }))
 
 class LoginForm(AuthenticationForm):
+    class Meta:
+        model = User
+        fields = ('email', 'password1')
+    
     email = forms.CharField(widget=forms.EmailInput(attrs={
         'placeholder': 'Your email'
     }))
 
     password = forms.CharField(widget=forms.PasswordInput(attrs={
-        'placeholder': 'Confirm password'
+        'placeholder': 'Type password'
     }))
 

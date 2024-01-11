@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import SignupForm, LoginForm
 from django.contrib.auth import login, logout
+from .senders import SendEmail
 
 # Create your views here.
 """
@@ -36,6 +37,15 @@ def user_login(request):
         form = LoginForm(request, request.POST)
         if form.is_valid():
             user = form.get_user()
+            #email verification
+            if not user.is_email_verified:
+                SendEmail.verification(request, user)
+                request.session["verification_email"] = user.email
+                return render(
+                    request,
+                    "accounts/email-verification-request.html",
+                    {"detail": "request", "email": user.email}
+                )
             login(request, user)
             return redirect('index')  # Redirect to the home page after login
     else:
@@ -52,12 +62,78 @@ def signup(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             user = form.save()
+            #send email
+            SendEmail.verification(request, user)
+            request.session["verification_email"] = user.email
+            return render(request, "accounts/email-verification-request.html")
             login(request, user)
             #form.save()
             return redirect('login')
         
     return render(request, "accounts/signup.html", {
         "form": form
-    })         
+    })  
+
+"""
+def verify_email(request, uidb64, token, user_id):
+    uidb64 = request.GET.get("uidb64")
+    token = request.GET.get("token")
+    user_id = request.GET.get("user_id")
+
+    try:
+            user_obj = User.objects.get(id=user_id)
+    except User.DoesNotExist:
+            messages.error(request, "You entered an invalid link")
+            return redirect(reverse("login"))
+
+    try:
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(id=uid)
+    except Exception as e:
+            user = None
+
+        #Storing the email of the user to avoid error if link is accessed from a different client
+    request.session["verification_email"] = (user_obj.email)  
+
+    if user:
+            if user.id != user_obj.id:
+                messages.error(request, "You entered an invalid link")
+                return redirect(reverse("login"))
+
+            if email_verification_generate_token.check_token(user, token):
+                user.is_email_verified = True
+                user.save()
+                messages.success(request, "Verification successful!")
+                request.session["verification_email"] = None
+                SendEmail.welcome(request, user)
+                return redirect(reverse("login"))
+
+    return render(
+            request,
+            "accounts/email-verification-failed.html",
+            {"email": user_obj.email},
+        ) 
+'''
+def resend_verification(request):
+    email = request.session.get("verification_email")
+        
+    try:
+            user = User.objects.get(email=email)
+            print(user)
+    except User.DoesNotExist:
+            messages.error(request, "Not allowed")
+            return redirect(reverse("login"))
+
+    if user.is_email_verified:
+            messages.info(request, "Email address already verified!")
+            request.session["verification_email"] = None
+            return redirect(reverse("login"))
+
+    SendEMail.verification_email(request, user)
+    messages.success(request, "Email Sent")
+    return render(
+            request,
+            "accounts/email-verification-request.html",
+        )                 
 
         
