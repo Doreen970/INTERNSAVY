@@ -19,9 +19,9 @@ email_verification_generate_token = EmailVerificationTokenGenerator()
 
 
 class EmailThread(threading.Thread):
-    def _init_(self, email):
+    def __init__(self, email):
         self.email = email
-        threading.Thread._init_(self)
+        threading.Thread.__init__(self)
 
     def run(self):
         self.email.send()
@@ -50,7 +50,7 @@ class SendEmail:
         subject = "Account Verified"
         context = {
             "domain": domain,
-            "name": user.full_name,
+            "name": user.username,
         }
         message = render_to_string("accounts/welcome-message.html", context)
         email_message = EmailMessage(subject=subject, body=message, to=[user.email])

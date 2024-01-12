@@ -1,7 +1,12 @@
 from django.shortcuts import render, redirect
 from .forms import SignupForm, LoginForm
 from django.contrib.auth import login, logout
-from .senders import SendEmail
+#from .senders import SendEmail
+from django.core.mail import send_mail
+from django.core.mail import EmailMessage
+from django.conf import settings
+from my_blog.settings import EMAIL_HOST_USER
+
 
 # Create your views here.
 """
@@ -38,14 +43,7 @@ def user_login(request):
         if form.is_valid():
             user = form.get_user()
             #email verification
-            if not user.is_email_verified:
-                SendEmail.verification(request, user)
-                request.session["verification_email"] = user.email
-                return render(
-                    request,
-                    "accounts/email-verification-request.html",
-                    {"detail": "request", "email": user.email}
-                )
+            
             login(request, user)
             return redirect('index')  # Redirect to the home page after login
     else:
@@ -63,9 +61,13 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             #send email
-            SendEmail.verification(request, user)
-            request.session["verification_email"] = user.email
-            return render(request, "accounts/email-verification-request.html")
+            mail = EmailMessage(
+                'Welcome', #subject
+                f'Hi {user.username}\n, Welcome to LaVie\n', #message
+                settings.EMAIL_HOST_USER, #sender
+                [user.email] #receiver
+            )
+            mail.send()
             login(request, user)
             #form.save()
             return redirect('login')
@@ -74,7 +76,7 @@ def signup(request):
         "form": form
     })  
 
-"""
+'''
 def verify_email(request, uidb64, token, user_id):
     uidb64 = request.GET.get("uidb64")
     token = request.GET.get("token")
@@ -113,7 +115,7 @@ def verify_email(request, uidb64, token, user_id):
             "accounts/email-verification-failed.html",
             {"email": user_obj.email},
         ) 
-'''
+
 def resend_verification(request):
     email = request.session.get("verification_email")
         
@@ -136,4 +138,4 @@ def resend_verification(request):
             "accounts/email-verification-request.html",
         )                 
 
-        
+'''        
