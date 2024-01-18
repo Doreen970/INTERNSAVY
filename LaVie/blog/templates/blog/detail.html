@@ -5,7 +5,7 @@
 <div class="text-center">
 <h1>{{ article.title }}</h1>
 <p>{{ article.content }}</p>
-{% if image %}
+{% if article.image %}
 <img src="{{ article.image.url }}" />
 {% endif %}
 <p>Date published: {{ article.pub_date }}</p>
