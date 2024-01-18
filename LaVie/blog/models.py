@@ -5,11 +5,12 @@ from django.utils import timezone
 from django.urls import reverse
 from django.utils.text import slugify
 from time import time
+from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.
 class Article(models.Model):
     title = models.CharField(max_length=200)
-    content = models.TextField()
+    content = RichTextUploadingField(blank=True, null=True)
     pub_date = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, default=User.objects.filter(is_superuser=True).first().pk)
     #image = models.ImageField(upload_to='article_images/', blank=True, null=True)

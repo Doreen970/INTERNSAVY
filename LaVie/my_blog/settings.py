@@ -135,12 +135,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'login'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_UPLOAD_PATH = "media/"
 CKEDITOR_IMAGE_BACKEND = "pillow"
-
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #SMTP CONFIGURATION
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -155,3 +152,12 @@ EMAIL_USE_TLS = config("EMAIL_USE_TLS")
 #password reset url
 PASSWORD_RESET_CONFIRM_URL = 'password_reset_confirm'
 
+"""
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Basic',
+        'height': 300,
+        'width': 300,
+    },
+}
+"""
