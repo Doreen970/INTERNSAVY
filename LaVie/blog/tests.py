@@ -5,6 +5,8 @@ from django.conf import settings
 from .models import Article
 from decouple import config
 from django.contrib.auth.password_validation import validate_password
+from . import views
+from django.urls import reverse
 
 # Create your tests here.
 
@@ -51,7 +53,24 @@ class ArticleModelTests(TestCase):
         try:
             is_strong = validate_password(SECRET_KEY)
         except Exception as e:
-            self.fail(e)    
+            self.fail(e)  
 
+
+
+from django.test import TestCase
+from django.urls import reverse
+
+class BlogViewsTests(TestCase):
+    def test_search(self):
+        # Assuming your form on the index page submits to '/search/' with the 'q' parameter
+        index_url = reverse('index')  # Update with the name of your index view
+        response = self.client.post(index_url, {'q': 'skin'}, follow=True)
+
+        # Check that the response status code is 200 (OK)
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the rendered HTML contains the expected content (case-insensitive)
+        expected_content = 'skincare'
+        self.assertContains(response, expected_content.lower())
 
             

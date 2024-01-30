@@ -4,6 +4,9 @@
 {% block content %}
 <div class="text-center">
 <h1>{{ article.title }}</h1>
+<!--{% with sentences=article.content|linebreaksbr|striptags|default:'' %}
+        <p>{{ sentences|truncatewords_html:20|safe }}</p>
+    {% endwith %}--->
 <p>{{ article.content|safe }}</p>
 {% if article.image %}
 <img src="{{ article.image.url }}" />

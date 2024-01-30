@@ -1,5 +1,7 @@
 {% extends 'blog/base.html' %}
 
+{% load custom_filters %}
+
 <!--{% block title %}<h1>LaVie</h1>{% endblock %}--->
 {% block content %}
 
@@ -10,6 +12,7 @@
         <li style="margin-bottom: 15px;">
             <a href="{% url 'detail' article.slug %}" style="text-decoration: none; color: black;">
                 <span><h3>{{ article.title }}</h3></span>
+                <span>{{ article.content|extract_image|safe }}</span>
                 <span><p>Author: {{ article.created_by.username }}</p></span>
             
             {% if article.was_published_recently %}
