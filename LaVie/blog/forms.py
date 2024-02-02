@@ -1,7 +1,7 @@
 # a form used to create articles
 
 from django import forms
-from .models import Article
+from .models import Article, Comment
 from ckeditor.widgets import CKEditorWidget
 
 class BlogForm(forms.ModelForm):
@@ -19,3 +19,8 @@ class EditForm(forms.ModelForm):
         widgets = {
             'content': CKEditorWidget(),
         }
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']

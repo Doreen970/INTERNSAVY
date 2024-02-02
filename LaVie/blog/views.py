@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Article
-from .forms import BlogForm, EditForm
+from .models import Article, Comment
+from .forms import BlogForm, EditForm, CommentForm
 from django.db.models import Q
 
 #@login_required
@@ -44,10 +44,25 @@ def article_list(request):
 
 @login_required
 def detail(request, slug):
-    #article = Article.objects.get(pk=pk)
+    """
     article = get_object_or_404(Article, slug=slug)
-    #article = Article.objects.get(slug=slug)
     return render(request, 'blog/detail.html', {'article': article})
+    """
+    article = get_object_or_404(Article, slug=slug)
+    comments = article.article_comments.all()
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.article = article
+            comment.author = request.user
+            comment.save()
+            return redirect('detail', slug=slug)
+    else:
+        form = CommentForm()
+
+    return render(request, 'blog/detail.html', {'article': article, 'comments': comments, 'form': form})
 
 @login_required
 def dashboard(request):

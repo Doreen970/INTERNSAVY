@@ -13,5 +13,17 @@
 {% endif %}
 <p>Date published: {{ article.pub_date }}</p>
 <p>Author: {{ article.created_by.username }}</p>
-{% endblock content %}
+
+<h2>Comments</h2>
+    {% for comment in comments %}
+        <p>{{ comment.content }} - {{ comment.author.username }} ({{ comment.pub_date }})</p>
+    {% endfor %}
+
+    <h3>Add a Comment</h3>
+    <form method="post" action="{% url 'detail' slug=article.slug %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Post Comment</button>
+    </form>
 </div>
+{% endblock content %}
