@@ -88,6 +88,8 @@ def edit(request, slug):
             return redirect('detail', slug=article.slug)#redirect to detail view
     else:
         form = EditForm(instance=article)
-    return render(request, 'blog/edit.html', {'form': form})        
+    return render(request, 'blog/edit.html', {'form': form}) 
 
+def about(request):
+    return render(request, 'blog/about.html')
 
