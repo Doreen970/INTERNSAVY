@@ -90,7 +90,7 @@
             <a href="{% url 'about' %}">About</a>
         </div>
 <div>
-            <a href="">Code of conduct</a>
+            <a href="{% url 'conduct' %}">Code of conduct</a>
         </div>
         <div>
             <a href="">FAQ</a>
@@ -104,6 +104,11 @@
    {% block content %}
    
    {% endblock content %}
+   {% block footer %}
+   <footer>
+
+   </footer>
+   {% endblock %}
 </div>
 </main>
 <script src="{% static 'ckeditor/ckeditor-init.js' %}"></script>

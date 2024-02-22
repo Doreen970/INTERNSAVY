@@ -11,4 +11,5 @@ urlpatterns = [
     path('edit/<slug:slug>/', views.edit, name='edit'),
     path('search/', views.search, name='search'),
     path('about/', views.about, name='about'),
+    path('conduct/', views.conduct, name='conduct'),
 ]

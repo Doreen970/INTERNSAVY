@@ -93,3 +93,7 @@ def edit(request, slug):
 def about(request):
     return render(request, 'blog/about.html')
 
+def conduct(request):
+    return render(request, 'blog/conduct.html')
+
+
