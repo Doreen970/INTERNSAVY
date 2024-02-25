@@ -1,2 +1,2 @@
 # INTERNSAVY
-This is a repository for all my project tasks while undergoing internsavy internship program. 
+This is a project for a blog site using Django. I have used Django for backend and bootstrap for frontend. 
